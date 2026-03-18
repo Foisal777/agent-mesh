@@ -1,16 +1,3 @@
-[build]
-builder = "nixpacks"
-
-[build.nixpacksPlan.phases.setup]
-nixPkgs = ["python312", "nodejs_20", "nodePackages.npm"]
-
-[build.nixpacksPlan.phases.install]
-cmds = [
-  "python3 -m pip install -r requirements.txt",
-  "cd frontend && npm install && npm run build && cd .."
-]
-
 [deploy]
-startCommand = "python3 -m gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 60"
 healthcheckPath = "/api/health"
 restartPolicyType = "on_failure"
